@@ -1,7 +1,6 @@
 import os
 import random
 import string
-from cryptography.fernet import Fernet
 
 
 def makeGrass(path):
@@ -39,23 +38,6 @@ def main():
                 newPathString+=entry+"/"
             else:
                 done=True
-
-
-
-
-    key = Fernet.generate_key()
-
-    # Save the key into a file
-    with open('lawnmower.key', 'wb') as f:
-        f.write(key)
-
-
-    # Load the key from the .key file
-    with open('lawnmower.key', 'rb') as f:
-        key = f.read()
-
-    # Create a Fernet object using the key
-    fernet = Fernet(key)
 
 
 

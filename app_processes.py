@@ -1,14 +1,13 @@
 import signal
 
-import psutil
 import subprocess
 import os
 import random
-'''
+
 from close_firefox_window import close_firefox_run
 from close_terminal_window import close_terminal_run
 from close_code_editor_window import close_code_editor_run
-'''
+
 
 
 nerdyProcessPoints = {
@@ -18,14 +17,14 @@ nerdyProcessPoints = {
     'discord': 99999
 }
 
-'''
+
 nerdyProcessMessages = {
     'firefox': close_firefox_run,
     'code': close_code_editor_run,
     'terminal': close_terminal_run,
     'discord': lambda : print("Discord Mod")
 }
-'''
+
 
 #Checks if processes with specific name are running
 def isRunning(pName):
