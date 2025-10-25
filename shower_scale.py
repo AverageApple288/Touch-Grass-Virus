@@ -1,10 +1,7 @@
 from app_processes import isRunning, nerdyProcessPoints, terminateRandNerdProcess
+from addRandomGrassFiles import main as randGrassFileMain
 import random
 import time
-
-from change_wallpaper import change_wallpaper
-from initial_pop_up_window import initial_pop_up_run
-from shower_points_window import shower_points_run, shower_points_destroy
 
 #Showerpoints related constants
 MAXSP = 600
@@ -27,7 +24,7 @@ SPWARNINGS = ["How about you take a break",
 
 showerPoints = STARTINGSP
 currLvl = 4 #Level n corresponds to values in (n-1)th index of array, 4 possible levels
-events = [terminateRandNerdProcess, ]
+events = [terminateRandNerdProcess, randGrassFileMain]
 
 
 def adjustLevel():
@@ -67,17 +64,16 @@ def lowerShowerScale():
              #print(p, v)
             showerPoints -= v
 
-# Startup code
-change_wallpaper()
-initial_pop_up_run()
-
+randGrassFileMain()
 while True:
     lowerShowerScale()
     if (SHUTDOWNSP <= 0):
-        adjustLevel()
+        break
 
-    shower_points_app = shower_points_run(showerPoints)
-    shower_points_destroy(shower_points_app)
+
+
+    adjustLevel()
+
     print(showerPoints)
     print(currLvl)
 
