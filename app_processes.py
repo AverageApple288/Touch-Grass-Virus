@@ -1,9 +1,15 @@
 import signal
-from tokenize import String
 
 import psutil
 import subprocess
 import os
+
+nerdyProcesses = {
+    'firefox': 1,
+    'code': 1,
+    'terminal': 1,
+    'discord': 100
+}
 
 #Checks if processes with specific name are running
 def isRunning(pName):
