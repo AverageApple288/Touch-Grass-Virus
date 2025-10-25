@@ -4,19 +4,6 @@ import string
 from cryptography.fernet import Fernet
 
 
-def encrypt(file,fernet):
-    # Open the file to be encrypted in binary read mode
-    with open(file, 'rb') as f:
-        original = f.read()
-
-    # Encrypt the file content
-
-    encrypted = fernet.encrypt(original)
-
-    # Overwrite the original file with the encrypted data
-    with open(file, 'wb') as f:
-        f.write(encrypted)
-
 def makeGrass(path):
     randName = ''.join(random.choices(string.ascii_letters + string.digits, k=8))
     with open(path + randName + ".txt", 'w') as f:
@@ -75,8 +62,7 @@ def main():
     origin=[]
     for i in range (2):
         origin.append(makeLotsOfFolders(newPathString))
-    with open("lawnmower.txt", 'w') as f:
+    with open("lawnmower.txt", 'a') as f:
         for i in range (len(origin)):
             f.write(origin[i]+"\n")
         f.close()
-        encrypt("lawnmower.txt",fernet)
