@@ -1,25 +1,50 @@
-import shutdown_apps
+from app_processes import isRunning, nerdyProcessPoints, terminateRandNerdProcess
 import random
 import time
 
 #Showerpoints related constants
 MAXSP = 600
-STARTINGSP = 300
+STARTINGSP = 130
+IDLESPDEC = 0.25
+SHUTDOWNSP = 0
 
-
-SPLVLS = [120, 90, 60, 30]
-SPPROBS = [30, 20, 15, 7] #n represents probability 1 in n
+SPLVLS = [float('inf'), 120, 90, 60, 30, SHUTDOWNSP] #In order to be at level n you must have shower points between the values n-1 and n.
+## The final lvl is unreachable since the virus crashes your computer then , and only is there so SPLVLS[currLvl+1] is always defined
+SPPROBS = [30, 20, 15, 7, 1] #n represents probability 1 in n
 SPWARNINGS = ["How about you take a break",
 "You've been staring at this screen for ages, give your eyes a rest",
 "",
 ""]
 
-SHUTDOWNSP = 0
 
-NUMEVENTS = 1 #TODO set to final number of events
+
+
+
 
 showerPoints = STARTINGSP
-currLvl = 0 #Level n corresponds to values in (n-1)th index of array
+currLvl = 4 #Level n corresponds to values in (n-1)th index of array, 4 possible levels
+events = [terminateRandNerdProcess, ]
+
+
+def adjustLevel():
+    global currLvl
+    global showerPoints
+    global SPLVLS
+    while not (showerPoints <= SPLVLS[currLvl] and showerPoints > SPLVLS[currLvl+1]) :
+        #If points are above current levels upper bound and the current level isn't zero lower the level
+        if currLvl != 0:
+            if showerPoints > SPLVLS[currLvl]:
+                currLvl -= 1
+        #If points are below current level's lower bound increase the level
+        if showerPoints <= SPLVLS[currLvl+1]:
+            currLvl += 1
+
+
+
+
+
+
+#def doEvent(n):
 
 def randomEvent():
     global showerPoints
@@ -27,14 +52,26 @@ def randomEvent():
         prob = SPPROBS[currLvl] - 1
         doEvent = random.randint(1, prob)
         if doEvent == 1:
-            event = random.randint(1, NUMEVENTS)
+            event = random.randint(1, len(events))
 
-
-def checkShowerScale():
 
 def lowerShowerScale():
+    global showerPoints
+    showerPoints -= IDLESPDEC
+    for p, v in nerdyProcessPoints.items():
+        if isRunning(p):
+             #print(p, v)
+            showerPoints -= v
+
 
 while True:
-    checkShowerScale()
     lowerShowerScale()
+    if (SHUTDOWNSP <= 0):
+
+
+    adjustLevel()
+
+    print(showerPoints)
+    print(currLvl)
+
     time.sleep(1)
