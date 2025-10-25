@@ -5,11 +5,24 @@ import subprocess
 import os
 import random
 
-nerdyProcesses = {
+from close_firefox_window import close_firefox_run
+from close_terminal_window import close_terminal_run
+from close_code_editor_window import close_code_editor_run
+
+
+
+nerdyProcessPoints = {
     'firefox': 4.75,
     'code': 1,
     'terminal': 1,
     'discord': 99999
+}
+
+nerdyProcessMessages = {
+    'firefox': close_firefox_run,
+    'code': close_code_editor_run,
+    'terminal': close_terminal_run,
+    'discord': lambda : print("Discord Mod")
 }
 
 #Checks if processes with specific name are running
@@ -20,6 +33,7 @@ def isRunning(pName):
     except subprocess.CalledProcessError:
         return False
 
+#Returns th
 def getRunningProcessPIDs(pName):
     try:
         pids = []
@@ -33,14 +47,14 @@ def getRunningProcessPIDs(pName):
 
 
 def getRunningNerdyProcesses():
-    allNProcPIDs = []
+    NerdProgs = []
     #Loop through nerdy processes
-    for pName in nerdyProcesses:
-        nProcPIDs = getRunningProcessPIDs(pName)
-        if len(nProcPIDs) > 0:
+    for pName in nerdyProcessPoints:
+        NerdProccesses = getRunningProcessPIDs(pName)
+        if len(NerdProccesses) > 0:
             #If there are some running, add it to a list of process PIDs
-            allNProcPIDs.append(nProcPIDs)
-    return allNProcPIDs
+            NerdProgs.append((pName, NerdProccesses))
+    return NerdProgs
 
 
 def terminatePIDs(pids):
@@ -66,7 +80,8 @@ def terminateRandNerdProcess():
     processes = getRunningNerdyProcesses()
     print(processes)
     randIndex = random.randint(0, len(processes)-1)
-    terminatePIDs(processes[randIndex])
+    terminatePIDs(processes[randIndex][1])
+    print(processes[randIndex][0], "was terminated")
 
 terminateRandNerdProcess()
 
