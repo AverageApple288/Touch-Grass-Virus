@@ -2,3 +2,8 @@
     font-size: 25px;
     font-weight: bold;
 }
+
+.background {
+    background-image: url('assets/grass.png');
+    background-position: center;
+}

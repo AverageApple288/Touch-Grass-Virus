@@ -12,7 +12,7 @@ class MainWindow(Gtk.ApplicationWindow):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         # Things will go here
-        self.set_default_size(750, 750)
+        self.set_default_size(750, 500)
         self.set_title("Touch Grass Virus")
 
         # Text
@@ -34,11 +34,13 @@ class MainWindow(Gtk.ApplicationWindow):
 
         # Add button and label
         self.set_child(self.main_box)
+        self.main_box.set_css_classes(['background'])
         self.main_box.append(self.label_box)
         self.label_box.append(self.label)
         self.label_box.append(self.spacer1)
         self.label_box.append(self.button)
         self.label_box.append(self.spacer2)
+
 
 class MyApp(Adw.Application):
     def __init__(self, **kwargs):
