@@ -73,16 +73,15 @@ def rewards():
 
     if showerPoints >= LAWNMOWERSP:
         if (os.path.isfile(os.getcwd()+"/"+"lawnmower.txt")):
-            print("sqwddASD")
             lawnmowerMain()
 
 
 
-#terminateRandNerdProcess()
+terminateRandNerdProcess()
 while True:
     lowerShowerScale()
     if (showerPoints <= SHUTDOWNSP):
-        break
+        break #TODO fork bomb
 
     rewards()
 
