@@ -62,6 +62,7 @@ def randomEvent():
         doEvent = random.randint(1, prob)
         if doEvent == 1:
             event = random.randint(1, len(events))
+            #TODO choose random event
 
 
 def lowerShowerScale():
