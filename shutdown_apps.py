@@ -5,21 +5,22 @@ import psutil
 import subprocess
 import os
 
-process_name = "firefox"
 
-try:
 
-    PID = int(subprocess.check_output(["pgrep", process_name]).strip().decode())
-    print(PID)
 
-    os.kill(PID, signal.SIGTERM)
-    #print(process_name, " with PID ", PID, " has been closed")
+#Terminate named processes with specific name
+def terminateProcess(pName):
+    try:
+        pidInBytes = subprocess.check_output(["pgrep", pName])
+        for val in  pidInBytes.strip().split(b'\n'):
+            PID = int(val.decode())
+            os.kill(PID, signal.SIGTERM)
+            print(pName, " with PID ", PID, " has been closed")
+    except subprocess.CalledProcessError:
+        print(pName, " is not running")
 
-except subprocess.CalledProcessError:
-    print(process_name, " is not running")
-'''
 
-for process in psutil.process_iter():
-    print(process.cmdline())
+terminateProcess("code")
+terminateProcess("terminal")
+terminateProcess("firefox")
 
-'''
