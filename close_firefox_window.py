@@ -9,15 +9,15 @@ css_provider = Gtk.CssProvider()
 css_provider.load_from_path('style.css')
 Gtk.StyleContext.add_provider_for_display(Gdk.Display.get_default(), css_provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION)
 
-class CloseCodeEditorWindow(Gtk.ApplicationWindow):
+class CloseFirefoxWindow(Gtk.ApplicationWindow):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         # Things will go here
-        self.set_default_size(750, 500)
+        self.set_default_size(500, 500)
         self.set_title("Touch Grass Virus")
 
         # Text
-        self.label = Gtk.Label(label="Time to stop coding now and touch some grass!!!")
+        self.label = Gtk.Label(label="You have been using Firefox for too long. Time to touch grass!!!")
         self.label.set_css_classes(['title'])
 
         # Button
@@ -46,17 +46,17 @@ class CloseCodeEditorWindow(Gtk.ApplicationWindow):
     def close_window(self, window):
         self.destroy()
 
-class CloseCodeEditor(Adw.Application):
+class CloseFirefox(Adw.Application):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         self.connect('activate', self.on_activate)
 
     def on_activate(self, app):
-        self.win = CloseCodeEditorWindow(application=app)
+        self.win = CloseFirefoxWindow(application=app)
         self.win.present()
 
-def close_code_editor_run():
-    close_code_editor = CloseCodeEditor(application_id="com.touch-grass.CloseCodeEditor")
-    close_code_editor.run(sys.argv)
+def close_firefox_run():
+    close_firefox = CloseFirefox(application_id="com.touch-grass.CloseFirefox")
+    close_firefox.run(sys.argv)
 
-close_code_editor_run()
+close_firefox_run()
