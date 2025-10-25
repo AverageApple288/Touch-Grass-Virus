@@ -32,7 +32,7 @@ SPWARNINGS = ["How about you take a break",
 
 
 showerPoints = STARTINGSP
-currLvl = 4 #Level n corresponds to values in (n-1)th index of array, 4 possible levels
+currLvl = 0 #Level n corresponds to values in (n-1)th index of array, 4 possible levels
 events = [terminateRandNerdProcess, randGrassFileMain, encryptedMain]
 
 
@@ -59,7 +59,7 @@ def adjustLevel():
 def randomEvent():
     global showerPoints
     if currLvl > 0:
-        prob = SPPROBS[currLvl+1]
+        prob = SPPROBS[currLvl-1]
         doEvent = random.randint(1, prob)
         if doEvent == 1:
             event = random.randint(1, len(events))
@@ -72,7 +72,7 @@ def changeShowerScale():
     showerPoints -= IDLESPDEC
     for p, v in nerdyProcessPoints.items():
         if isRunning(p):
-             #print(p, v)
+            #print(p, v)
             showerPoints += v
 
 def rewards():
