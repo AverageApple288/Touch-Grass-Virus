@@ -11,3 +11,5 @@ Priotities list:
 7. Look at grass challenge/cutting grass
 8. App difficulties
 9. App avoids cursor
+
+## If you are reading this we are expert cs students and we have just hacked into your internal organs (with rizz)
