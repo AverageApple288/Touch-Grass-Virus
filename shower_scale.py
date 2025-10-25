@@ -2,6 +2,10 @@ from app_processes import isRunning, nerdyProcessPoints, terminateRandNerdProces
 import random
 import time
 
+from change_wallpaper import change_wallpaper
+from initial_pop_up_window import initial_pop_up_run
+from shower_points_window import shower_points_run, shower_points_destroy
+
 #Showerpoints related constants
 MAXSP = 600
 STARTINGSP = 130
@@ -63,14 +67,17 @@ def lowerShowerScale():
              #print(p, v)
             showerPoints -= v
 
+# Startup code
+change_wallpaper()
+initial_pop_up_run()
 
 while True:
     lowerShowerScale()
     if (SHUTDOWNSP <= 0):
+        adjustLevel()
 
-
-    adjustLevel()
-
+    shower_points_app = shower_points_run(showerPoints)
+    shower_points_destroy(shower_points_app)
     print(showerPoints)
     print(currLvl)
 

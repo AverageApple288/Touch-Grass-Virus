@@ -58,7 +58,11 @@ class ShowerPoints(Adw.Application):
         self.win.present()
 
 def shower_points_run(shower_points):
-    shower_points = ShowerPoints(shower_points, application_id="com.touch-grass.ShowerPoints")
-    shower_points.run(sys.argv)
+    shower_points_app = ShowerPoints(shower_points, application_id="com.touch-grass.ShowerPoints")
+    shower_points_app.run(sys.argv)
+    return shower_points_app
+
+def shower_points_destroy(shower_points_app):
+    shower_points_app.destroy()
 
 shower_points_run()
