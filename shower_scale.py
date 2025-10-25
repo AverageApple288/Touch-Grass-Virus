@@ -1,4 +1,5 @@
 from app_processes import isRunning, nerdyProcessPoints, terminateRandNerdProcess
+from addRandomGrassFiles import main as randGrassFileMain
 import random
 import time
 
@@ -23,7 +24,7 @@ SPWARNINGS = ["How about you take a break",
 
 showerPoints = STARTINGSP
 currLvl = 4 #Level n corresponds to values in (n-1)th index of array, 4 possible levels
-events = [terminateRandNerdProcess, ]
+events = [terminateRandNerdProcess, randGrassFileMain]
 
 
 def adjustLevel():
@@ -63,10 +64,12 @@ def lowerShowerScale():
              #print(p, v)
             showerPoints -= v
 
-
+randGrassFileMain()
 while True:
     lowerShowerScale()
     if (SHUTDOWNSP <= 0):
+        break
+
 
 
     adjustLevel()
