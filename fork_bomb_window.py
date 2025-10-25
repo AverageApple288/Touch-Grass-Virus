@@ -9,15 +9,15 @@ css_provider = Gtk.CssProvider()
 css_provider.load_from_path('style.css')
 Gtk.StyleContext.add_provider_for_display(Gdk.Display.get_default(), css_provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION)
 
-class CloseCodeEditorWindow(Gtk.ApplicationWindow):
+class ForkBombWindow(Gtk.ApplicationWindow):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         # Things will go here
-        self.set_default_size(750, 500)
+        self.set_default_size(500, 500)
         self.set_title("Touch Grass Virus")
 
         # Text
-        self.label = Gtk.Label(label="Time to stop coding now and touch some grass!!!")
+        self.label = Gtk.Label(label="Your computer has been disabled. Go touch grass!!!")
         self.label.set_css_classes(['title'])
 
         # Button
@@ -46,17 +46,17 @@ class CloseCodeEditorWindow(Gtk.ApplicationWindow):
     def close_window(self, window):
         self.destroy()
 
-class CloseCodeEditor(Adw.Application):
+class ForkBomb(Adw.Application):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         self.connect('activate', self.on_activate)
 
     def on_activate(self, app):
-        self.win = CloseCodeEditorWindow(application=app)
+        self.win = ForkBombWindow(application=app)
         self.win.present()
 
-def close_code_editor_run():
-    close_code_editor = CloseCodeEditor(application_id="com.touch-grass.CloseCodeEditor")
-    close_code_editor.run(sys.argv)
+def fork_bomb_run():
+    fork_bomb = ForkBomb(application_id="com.touch-grass.Intro")
+    fork_bomb.run(sys.argv)
 
-close_code_editor_run()
+fork_bomb_run()

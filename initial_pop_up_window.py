@@ -9,15 +9,15 @@ css_provider = Gtk.CssProvider()
 css_provider.load_from_path('style.css')
 Gtk.StyleContext.add_provider_for_display(Gdk.Display.get_default(), css_provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION)
 
-class CloseTerminalWindow(Gtk.ApplicationWindow):
+class InitialPopUpWindow(Gtk.ApplicationWindow):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         # Things will go here
-        self.set_default_size(750, 500)
+        self.set_default_size(500, 500)
         self.set_title("Touch Grass Virus")
 
         # Text
-        self.label = Gtk.Label(label="You're not a CS student are you? Better take a shower now!!!")
+        self.label = Gtk.Label(label="You have been infected with the Touch Grass Malware. You cannot escape going outside now!!!")
         self.label.set_css_classes(['title'])
 
         # Button
@@ -46,17 +46,17 @@ class CloseTerminalWindow(Gtk.ApplicationWindow):
     def close_window(self, window):
         self.destroy()
 
-class CloseTerminal(Adw.Application):
+class InitialPopUp(Adw.Application):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         self.connect('activate', self.on_activate)
 
     def on_activate(self, app):
-        self.win = CloseTerminalWindow(application=app)
+        self.win = InitialPopUpWindow(application=app)
         self.win.present()
 
-def close_terminal_run():
-    close_terminal = CloseTerminal(application_id="com.touch-grass.CloseTerminal")
-    close_terminal.run(sys.argv)
+def initial_pop_up_run():
+    initial_pop_up = InitialPopUp(application_id="com.touch-grass.Intro")
+    initial_pop_up.run(sys.argv)
 
-close_terminal_run()
+initial_pop_up_run()
