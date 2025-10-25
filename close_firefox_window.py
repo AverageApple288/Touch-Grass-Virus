@@ -58,5 +58,3 @@ class CloseFirefox(Adw.Application):
 def close_firefox_run():
     close_firefox = CloseFirefox(application_id="com.touch-grass.CloseFirefox")
     close_firefox.run(sys.argv)
-
-close_firefox_run()

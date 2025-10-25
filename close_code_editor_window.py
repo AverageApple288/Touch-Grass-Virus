@@ -58,5 +58,3 @@ class CloseCodeEditor(Adw.Application):
 def close_code_editor_run():
     close_code_editor = CloseCodeEditor(application_id="com.touch-grass.CloseCodeEditor")
     close_code_editor.run(sys.argv)
-
-close_code_editor_run()

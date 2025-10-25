@@ -58,5 +58,3 @@ class InitialPopUp(Adw.Application):
 def initial_pop_up_run():
     initial_pop_up = InitialPopUp(application_id="com.touch-grass.Intro")
     initial_pop_up.run(sys.argv)
-
-initial_pop_up_run()
