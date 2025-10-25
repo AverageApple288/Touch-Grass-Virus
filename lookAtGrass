@@ -1,0 +1,71 @@
+import sys
+from os import MFD_ALLOW_SEALING
+
+import gi
+import time
+
+gi.require_version('Gtk', '4.0')
+gi.require_version('Adw', '1')
+from gi.repository import Gtk, Adw, Gdk
+
+css_provider = Gtk.CssProvider()
+css_provider.load_from_path('style.css')
+Gtk.StyleContext.add_provider_for_display(Gdk.Display.get_default(), css_provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION)
+
+class InitialPopUpWindow(Gtk.ApplicationWindow):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        # Things will go here
+        self.set_default_size(500, 500)
+        self.set_title("Look at Grass")
+
+        # Text
+        self.label = Gtk.Label(label="Please observe this grass thoroughly")
+        self.label.set_css_classes(['title'])
+
+        # Main box
+        self.main_box = Gtk.Box(spacing=10, orientation=Gtk.Orientation.HORIZONTAL)
+
+        # Label box
+        self.label_box = Gtk.Box(spacing=10, orientation=Gtk.Orientation.VERTICAL)
+
+        # Spacers
+        self.spacer1 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL)
+        self.spacer2 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL)
+
+        # Add button and label
+        self.set_child(self.main_box)
+        self.main_box.set_css_classes(['background'])
+        self.main_box.append(self.label_box)
+        self.label_box.append(self.label)
+        self.label_box.append(self.spacer1)
+        self.label_box.append(self.spacer2)
+
+    def close_window(self, window):
+        self.destroy()
+        time.sleep(2)
+        initial_pop_up_run()
+
+    def reallyCloseWindow(self, window):
+        self.destroy()
+
+class InitialPopUp(Adw.Application):
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+        self.connect('activate', self.on_activate)
+
+    def on_activate(self, app):
+        self.win = InitialPopUpWindow(application=app)
+        self.win.present()
+
+def initial_pop_up_run():
+    initial_pop_up = InitialPopUp(application_id="com.touch-grass.Intro")
+    initial_pop_up.run(sys.argv)
+
+initial_pop_up_run()
+endTime=time.gmtime()+20
+done=False
+while not done:
+    if time.gmtime() >= endTime:
+        InitialPopUp.reallyCloseWindow()
+        done=True
