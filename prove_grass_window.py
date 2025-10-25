@@ -72,7 +72,6 @@ class ProveGrassWindow(Gtk.ApplicationWindow):
                 file_path = f"File path is {file.get_path()}"
                 # Handle loading file from here
                 client = OpenAI(
-                    api_key="",
                 )
 
                 prompt = "Is this an image of someone touching grass? Please only answer with 'yes' or 'no'."

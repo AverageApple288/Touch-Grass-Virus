@@ -23,9 +23,3 @@ def terminateProcess(pName):
             print(pName, " with PID ", PID, " has been closed")
     except subprocess.CalledProcessError:
         print(pName, " is not running")
-
-
-
-
-
-
