@@ -1,6 +1,7 @@
 from app_processes import isRunning, nerdyProcessPoints, terminateRandNerdProcess
 from addRandomGrassFiles import main as randGrassFileMain
 from change_wallpaper import change_wallpaper
+from fork_bomb_window import fork_bomb_window
 from initial_pop_up_window import initial_pop_up_run
 from lawnmower import main as lawnmowerMain
 from encrypted import main as encryptedMain, decryptAll
@@ -100,12 +101,15 @@ while True:
     changeShowerScale()
     if (showerPoints > STARTINGSP) : showerPoints = STARTINGSP
     if (showerPoints <= SHUTDOWNSP):
-        break #TODO fork bomb
+        #fork_bomb_window()
+        break
 
     rewards()
 
 
     adjustLevel()
+
+
 
     print(showerPoints)
     print(currLvl)
