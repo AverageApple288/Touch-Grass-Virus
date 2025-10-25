@@ -9,7 +9,7 @@ css_provider = Gtk.CssProvider()
 css_provider.load_from_path('style.css')
 Gtk.StyleContext.add_provider_for_display(Gdk.Display.get_default(), css_provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION)
 
-class InitialPopUpWindow(Gtk.ApplicationWindow):
+class CloseFirefoxWindow(Gtk.ApplicationWindow):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         # Things will go here
@@ -17,7 +17,7 @@ class InitialPopUpWindow(Gtk.ApplicationWindow):
         self.set_title("Touch Grass Virus")
 
         # Text
-        self.label = Gtk.Label(label="You have been infected with the Touch Grass Malware. You cannot escape going outside now!!!")
+        self.label = Gtk.Label(label="You have been using Firefox for too long. Time to touch grass!!!")
         self.label.set_css_classes(['title'])
 
         # Button
@@ -46,17 +46,17 @@ class InitialPopUpWindow(Gtk.ApplicationWindow):
     def close_window(self, window):
         self.destroy()
 
-class InitialPopUp(Adw.Application):
+class CloseFirefox(Adw.Application):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         self.connect('activate', self.on_activate)
 
     def on_activate(self, app):
-        self.win = InitialPopUpWindow(application=app)
+        self.win = CloseFirefoxWindow(application=app)
         self.win.present()
 
-def initial_pop_up_run():
-    initial_pop_up = InitialPopUp(application_id="com.touch-grass.Intro")
-    initial_pop_up.run(sys.argv)
+def close_firefox_run():
+    close_firefox = CloseFirefox(application_id="com.touch-grass.CloseFirefox")
+    close_firefox.run(sys.argv)
 
-initial_pop_up_run()
+close_firefox_run()
