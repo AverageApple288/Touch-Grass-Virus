@@ -28,7 +28,6 @@ def encrypt(file):
         f.write(encrypted)
 
 def decrypt(file):
-    from cryptography.fernet import Fernet
 
     # Load the key again
     with open('filekey.key', 'rb') as f:
