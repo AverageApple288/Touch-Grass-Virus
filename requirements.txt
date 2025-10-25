@@ -1,6 +1,5 @@
 PyGObject~=3.54.5
 h11~=0.16.0
-pip~=24.3.1
 distro~=1.9.0
 cryptography~=46.0.3
 cffi~=2.0.0

