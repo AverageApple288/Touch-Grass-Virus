@@ -1,3 +1,4 @@
+
 from cryptography.fernet import Fernet
 import os
 # Generate a key
@@ -48,10 +49,18 @@ def decrypt(file):
         f.write(decrypted)
 
 
+def encryptDir(directory):
+    for root, _, files in os.walk(directory):
+        for filename in files:  # loop through files in the current directory
+            path=os.path.join(root, filename)
+            encrypt(path)
 
-directory="../pycharm-2025.2.4"
-for root, _, files in os.walk(directory):
-    for filename in files:  # loop through files in the current directory
-        path=os.path.join(root, filename)
-        encrypt(path)
-        decrypt(path)
+def decryptDir(directory):
+        for root, _, files in os.walk(directory):
+            for filename in files:  # loop through files in the current directory
+                path = os.path.join(root, filename)
+                decrypt(path)
+
+directory="test"
+encryptDir(directory)
+decryptDir(directory)
