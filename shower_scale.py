@@ -1,6 +1,7 @@
 from app_processes import isRunning, nerdyProcessPoints, terminateRandNerdProcess
 from addRandomGrassFiles import main as randGrassFileMain
 from lawnmower import main as lawnmowerMain
+from encypted.py import main, decryptAll
 import random
 import time
 import os
