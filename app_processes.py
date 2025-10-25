@@ -5,8 +5,13 @@ import psutil
 import subprocess
 import os
 
-
-
+#Checks if processes with specific name are running
+def isRunning(pName):
+    try:
+        subprocess.check_output(["pgrep", pName])
+        return True
+    except subprocess.CalledProcessError:
+        return False
 
 #Terminate named processes with specific name
 def terminateProcess(pName):
@@ -20,7 +25,7 @@ def terminateProcess(pName):
         print(pName, " is not running")
 
 
-terminateProcess("code")
-terminateProcess("terminal")
-terminateProcess("firefox")
+
+
+
 
