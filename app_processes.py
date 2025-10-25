@@ -20,7 +20,5 @@ def terminateProcess(pName):
         print(pName, " is not running")
 
 
-terminateProcess("code")
-terminateProcess("terminal")
-terminateProcess("firefox")
+
 
