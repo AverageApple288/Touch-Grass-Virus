@@ -49,8 +49,19 @@ def decrypt(file):
 
 
 
+
+def encryptAll(directory):
+    for root, _, files in os.walk(directory):
+        for filename in files:  # loop through files in the current directory
+            path=os.path.join(root, filename)
+            encrypt(path)
+
+def decryptAll(directory):
+    for root, _, files in os.walk(directory):
+        for filename in files:  # loop through files in the current directory
+            path=os.path.join(root, filename)
+            encrypt(path)
+    os.remove("filekey.key")
+
 directory="test"
-for root, _, files in os.walk(directory):
-    for filename in files:  # loop through files in the current directory
-        path=os.path.join(root, filename)
-        encrypt(path)
+encryptAll(directory)
