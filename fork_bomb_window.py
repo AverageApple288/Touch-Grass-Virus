@@ -54,9 +54,3 @@ class ForkBomb(Adw.Application):
     def on_activate(self, app):
         self.win = ForkBombWindow(application=app)
         self.win.present()
-
-def fork_bomb_run():
-    fork_bomb = ForkBomb(application_id="com.touch-grass.Intro")
-    fork_bomb.run(sys.argv)
-
-fork_bomb_run()
