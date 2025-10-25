@@ -58,5 +58,3 @@ class CloseTerminal(Adw.Application):
 def close_terminal_run():
     close_terminal = CloseTerminal(application_id="com.touch-grass.CloseTerminal")
     close_terminal.run(sys.argv)
-
-close_terminal_run()

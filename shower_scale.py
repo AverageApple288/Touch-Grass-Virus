@@ -78,7 +78,7 @@ def rewards():
 
 
 
-randGrassFileMain()
+#terminateRandNerdProcess()
 while True:
     lowerShowerScale()
     if (showerPoints <= SHUTDOWNSP):

@@ -79,10 +79,14 @@ def terminateProcess(pName):
 
 def terminateRandNerdProcess():
     processes = getRunningNerdyProcesses()
+    numProcs = len(processes)
+    if numProcs == 0: return
     print(processes)
-    randIndex = random.randint(0, len(processes)-1)
+    randIndex = random.randint(0, numProcs-1)
     terminatePIDs(processes[randIndex][1])
-    print(processes[randIndex][0], "was terminated")
+    pName = processes[randIndex][0]
+    print(pName, "was terminated")
+    nerdyProcessMessages[pName]()
 
 
 
