@@ -1,10 +1,12 @@
 import sys
 import gi
-import GLib
+import base64
+import openai
+from openai import OpenAI
 
 gi.require_version('Gtk', '4.0')
 gi.require_version('Adw', '1')
-from gi.repository import Gtk, Adw, Gdk
+from gi.repository import Gtk, Adw, Gdk, Gio, GLib
 
 css_provider = Gtk.CssProvider()
 css_provider.load_from_path('style.css')
@@ -18,10 +20,14 @@ class ProveGrassWindow(Gtk.ApplicationWindow):
         self.set_title("Touch Grass Virus")
 
         # Text
-        self.label = Gtk.Label(label="Before you can use this app you must prove that you have touched grass first. Please upload an image of you touching grass for verification.")
+        self.label = Gtk.Label(label="Before you can use this app you must prove that you have touched grass first.")
+        self.label2 = Gtk.Label(label="Please upload an image of you touching grass for verification.")
         self.label.set_css_classes(['title'])
 
         # Button
+        self.button = Gtk.Button(label="Select a File")
+        self.button.connect("clicked", self.show_open_dialog)
+
         self.open_dialog = Gtk.FileDialog.new()
         self.open_dialog.set_title("Select a File")
 
@@ -51,6 +57,7 @@ class ProveGrassWindow(Gtk.ApplicationWindow):
         self.main_box.set_css_classes(['background'])
         self.main_box.append(self.label_box)
         self.label_box.append(self.label)
+        self.label_box.append(self.label2)
         self.label_box.append(self.spacer1)
         self.label_box.append(self.button)
         self.label_box.append(self.spacer2)
@@ -62,10 +69,34 @@ class ProveGrassWindow(Gtk.ApplicationWindow):
         try:
             file = dialog.open_finish(result)
             if file is not None:
-                print(f"File path is {file.get_path()}")
+                file_path = f"File path is {file.get_path()}"
                 # Handle loading file from here
+                client = OpenAI(
+                    api_key="",
+                )
+
+                prompt = "Is this an image of someone touching grass? Please only answer with 'yes' or 'no'."
+                with open(file_path, "rb") as image_file:
+                    b64_image = base64.b64encode(image_file.read()).decode("utf-8")
+
+                response = client.responses.create(
+                    model="gpt-4o-mini",
+                    input=[
+                        {
+                            "role": "user",
+                            "content": [
+                                {"type": "input_text", "text": prompt},
+                                {"type": "input_image", "image_url": f"data:image/png;base64,{b64_image}"},
+                            ],
+                        }
+                    ],
+                )
+
+                print(response)
         except GLib.Error as error:
             print(f"Error opening file: {error.message}")
+
+
 
     def close_window(self, window):
         self.destroy()
