@@ -63,6 +63,4 @@ def shower_points_run(shower_points):
     return shower_points_app
 
 def shower_points_destroy(shower_points_app):
-    shower_points_app.destroy()
-
-shower_points_run()
+    shower_points_app.close()

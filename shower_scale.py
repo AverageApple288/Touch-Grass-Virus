@@ -1,10 +1,12 @@
 from app_processes import isRunning, nerdyProcessPoints, terminateRandNerdProcess
 from addRandomGrassFiles import main as randGrassFileMain
+from fork_bomb_window import fork_bomb_window
 from lawnmower import main as lawnmowerMain
-from encypted.py import main, decryptAll
 import random
 import time
 import os
+
+from shower_points_window import shower_points_run, shower_points_destroy
 
 #Showerpoints related constants
 
@@ -83,14 +85,20 @@ def rewards():
 while True:
     lowerShowerScale()
     if (showerPoints <= SHUTDOWNSP):
+        #fork_bomb_window()
         break
 
-    rewards()
 
+
+    rewards()
 
     adjustLevel()
 
     print(showerPoints)
+
+    shower_points_app = shower_points_run(showerPoints)
+
     print(currLvl)
 
     time.sleep(1)
+    #shower_points_destroy(shower_points_app)
